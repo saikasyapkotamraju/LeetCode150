@@ -1,6 +1,13 @@
 Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
 
 Solution
+Steps : 1. Put inorder values and positions(indices) in hashmap
+        2. Identify the root value from inorder array and its index position from hash map
+        3. Create a root from root value 
+        4. In postorder we have right just before root value and as we are decrementing root pos by one every time construct first right and then left sub trees from corresponding 
+            inorder arrays based on root position (Inoder array for left sub tree [inStart, rootPos-1] and for right sub tree [rootPos+1, inEnd]
+            
+
 class Solution {
     Map<Integer, Integer> inMap;
     int postIndex;
