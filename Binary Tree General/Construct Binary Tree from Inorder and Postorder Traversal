@@ -1,0 +1,28 @@
+Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
+
+Solution
+class Solution {
+    Map<Integer, Integer> inMap;
+    int postIndex;
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        inMap = new HashMap<>();
+        postIndex = postorder.length-1;
+        for(int i=0; i<inorder.length; i++)
+        {
+            inMap.put(inorder[i], i);
+        }
+        return buildTree(inorder, postorder, 0, inorder.length-1);
+    }
+
+    public TreeNode buildTree(int[] inorder, int[] postorder, int inStart, int inEnd)
+    {
+        if(inStart > inEnd)return null;
+        int rootVal = postorder[postIndex];
+        postIndex--;
+        TreeNode root = new TreeNode(rootVal);
+        int rootPos = inMap.get(rootVal);
+        root.right = buildTree(inorder, postorder, rootPos+1, inEnd);
+        root.left = buildTree(inorder, postorder, inStart, rootPos-1);
+        return root;
+    }
+}
